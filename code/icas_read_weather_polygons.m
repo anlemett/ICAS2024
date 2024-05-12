@@ -1,9 +1,9 @@
 
 clear; close all; clc;
 
-weather_file_name = fullfile('.', 'code_input', 'DLR_WCB_T_EUR_202306081456.xml');
+weather_filename = fullfile('.', 'code_input', 'meteo_data', 'DLR_WCB_T_EUR_202306081456.xml');
 
-S = readstruct(weather_file_name);
+S = readstruct(weather_filename);
 
 %polygons = {};
 
@@ -16,6 +16,14 @@ f = getFieldValues(S);
 function values = getFieldValues(strct)
     % Get the field names of this structure
     fields = fieldnames( strct );
+    %{
+    if length(fields)==1
+        if strcmp('wims_StatusWeatherProduct', fields{1})
+            values = [];
+            return
+        end
+    end
+    %}
     values = {};
     % Loop over the fields
     for ii = 1:numel(fields)
@@ -34,6 +42,9 @@ function values = getFieldValues(strct)
         else
             if isstruct( strct.(fields{ii}) )
                 % This is a substructure, recursively fetch fields
+
+                % check if it is wims:status do not go further
+
                 value = getFieldValues(strct.(fields{ii}));
                 values=[values;value];
             else
