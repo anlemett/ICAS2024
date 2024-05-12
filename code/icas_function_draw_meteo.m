@@ -56,7 +56,7 @@ function icas_function_draw_meteo()
     % TODO: add upper_sector_filename
     [sector_names, sector_time, sector_data] = icas_function_all_configurations(config_vec, lower_sector_filename);
 
-    disp(sector_names)
+    %disp(sector_names)
 
     % TODO: Create adjacent sectors
 
