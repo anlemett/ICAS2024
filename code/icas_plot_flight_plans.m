@@ -15,7 +15,7 @@ callsigns = unique(flight_plans.callsign);
 
 flight_nums = length(callsigns);
 
-figure; hold on;
+%figure; hold on;
 
 min_lon = 9;
 max_lon = 13;
@@ -26,12 +26,28 @@ latlim = [min_lat max_lat];
 lonlim = [min_lon max_lon];
 
 for i=1:flight_nums
-    flight = flight_plans(strcmp(flight_plans.callsign, callsigns(i)), :);
-    fig = plot(flight.beginLon, flight.beginLat, 'linewidth', 2);
+    figure;
+    callsign = string(callsigns(i));
+    flight = flight_plans(strcmp(flight_plans.callsign, callsign), :);
+    %fig = plot(flight.beginLon, flight.beginLat, 'linewidth', 2);
+    
+    altitudes = flight.beginAltitude;
+    num_way_points = length(altitudes);
+    altitudes(num_way_points+1) = flight.endAltitude(num_way_points);
+    times = 1:length(altitudes);
+    fig = plot(times, altitudes, 'linewidth', 2);
+
+    %filename = strcat(callsign, "_latlon");
+    filename = strcat(callsign, "_altitude");
+    saveas(fig, fullfile('.', 'figures', 'temp', filename), 'png');
+    clf(fig)
+
 end
 
-filename = 'temp';
-saveas(fig, fullfile('.', 'figures', 'temp', filename), 'png');
-clf(fig)
+%filename = 'temp';
+%saveas(fig, fullfile('.', 'figures', 'temp', filename), 'png');
+
+close all;
+
 
 

@@ -14,15 +14,14 @@ function [sector_names, sector_time, sector_data] = icas_main_function()
 % Output:
 %   Available sector capacity ratio ASCR{k}(t) for each sector k at time t
 
-    % Time: from 15.00 to 17.30
-    minut_vec = 00:15:150; % Minutes from 15.00
+    % Time: from 15.30 to 17.30
+    minut_vec = 30:15:150; % Minutes from 15.00
 
     t_string = [repmat('2023-06-08 15:', size(minut_vec')), num2str(minut_vec', '%02.0f'), repmat(':00', size(minut_vec'))];
     t_vec_ini = datenum(t_string, 'yyyy-mm-dd HH:MM:SS');
 
     t_string = [repmat('2018-06-08 15:', size(minut_vec')), num2str((minut_vec'+15), '%02.0f'), repmat(':00', size(minut_vec'))];
     t_vec_fin = datenum(t_string, 'yyyy-mm-dd HH:MM:SS');
-
 
     % Airspace configurations
     % ACC: configuration (time)
@@ -35,4 +34,12 @@ function [sector_names, sector_time, sector_data] = icas_main_function()
     % EDUUUTAE: E6(15.00 - 15.14), E7D(15.15 - 15.29, 17.00 - 17.29), E6F(15.30 - 16.59)
     % EDUUUTAS: S6H (15.00 - 17.29)
     % EDUUUTAW: W6B (15.00 - 17.29)
+
+    % Runways (https://skyvector.com/airport/EDDM/Muenchen-Airport)
+    % Runway 08R: N48°20.44' / E11°45.06', Runway 26L: N48°20.69' / E11°48.28'
+    % Runway 08L: N48°21.77' / E11°46.05', Runway 26R: N48°22.01' / E11°49.27'
+
+    % Read airspace data
+    % ACC EDMMCTAA coordinates:
+    main_pgon = icas_function_read_acc_data();
 

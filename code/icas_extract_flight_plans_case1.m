@@ -17,7 +17,7 @@ flight_plans.Properties.VariableNames = {'segmentId', ...
     'beginDate', 'endDate', 'beginLat', 'beginLon', 'endLat', 'endLon', ...
     'segmentLength', 'segmentParityColor', 'beginTimestamp', 'endTimestamp'};
 
-columnsToKeep = [5,6,10,13,14,15,16];
+columnsToKeep = [5,6,7,8,10,13,14,15,16];
 flight_latlons = flight_plans(:, columnsToKeep);
 
 % ignore incorrect negative values because it is not our area of interest
@@ -27,24 +27,27 @@ flight_latlons{:,"endLat"} = flight_latlons{:,"endLat"} / 60;
 flight_latlons{:,"endLon"} = flight_latlons{:,"endLon"} / 60;
 
 rowIndices = find(flight_latlons.beginLat > 47 & flight_latlons.beginLat < 50);
-filtered_flights = flight_latlons(rowIndices, :)
+filtered_flights = flight_latlons(rowIndices, :);
 
 rowIndices = find(filtered_flights.endLat > 47 & filtered_flights.endLat < 50);
-filtered_flights = filtered_flights(rowIndices, :)
+filtered_flights = filtered_flights(rowIndices, :);
 
 rowIndices = find(filtered_flights.beginLon > 9 & filtered_flights.beginLon < 13);
-filtered_flights = filtered_flights(rowIndices, :)
+filtered_flights = filtered_flights(rowIndices, :);
 
 rowIndices = find(filtered_flights.endLon > 9 & filtered_flights.endLon < 13);
-filtered_flights = filtered_flights(rowIndices, :)
+filtered_flights = filtered_flights(rowIndices, :);
 
 rowIndices = find(filtered_flights.beginTime > 150000 & filtered_flights.beginTime < 173000);
-filtered_flights = filtered_flights(rowIndices, :)
+filtered_flights = filtered_flights(rowIndices, :);
 
 rowIndices = find(filtered_flights.endTime > 150000 & filtered_flights.endTime < 173000);
-filtered_flights = filtered_flights(rowIndices, :)
+filtered_flights = filtered_flights(rowIndices, :);
+
+rowIndices = find(filtered_flights.endAltitude < 195);
+filtered_flights = filtered_flights(rowIndices, :);
 
 filename = fullfile('.', 'temp', 'flights_case1.csv');
-writetable(filtered_flights, filename)
+writetable(filtered_flights, filename);
 
 
