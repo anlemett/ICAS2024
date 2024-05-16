@@ -1,10 +1,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ICAS24: airspace capacity 
 % Anastasia Lemetti
-% MATLAB version: MATLAB R2023b
+% MATLAB version: MATLAB R2024a
 % 
 % plot EDMMCTAA with neighbours on all flight levels for 2023-06-08,
 % for configurations A5I and A5NH
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Airspace configuration
 lower_sector_filename = fullfile('.', 'code_input', 'airspace_data', 'Lower_airspace', ...

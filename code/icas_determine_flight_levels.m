@@ -1,9 +1,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ICAS24: airspace capacity 
 % Anastasia Lemetti
-% MATLAB version: MATLAB R2023b
+% MATLAB version: MATLAB R2024a
 % 
 % determine flight levels in lower sector configurations for 2023-06-08
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Airspace configuration
 lower_sector_filename = fullfile('.', 'code_input', 'airspace_data', 'Lower_airspace', ...
@@ -182,8 +183,6 @@ for ii = 1:numel(conf_names)
         % Calculate the y-intercept of the perpendicular line using the midpoint
         b_perpendicular = midpoint(2) - perpendicular_slope * midpoint(1);
 
-        % Define x-values for plotting
-        x_minvalues = linspace(9, 13, 100);
         % Calculate y-values of the perpendicular line
         y_min_lon = perpendicular_slope * min_lon + b_perpendicular;
         y_max_lon = perpendicular_slope * max_lon + b_perpendicular;

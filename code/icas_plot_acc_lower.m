@@ -1,9 +1,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ICAS24: airspace capacity 
 % Anastasia Lemetti
-% MATLAB version: MATLAB R2023b
+% MATLAB version: MATLAB R2024a
 % 
 % plot lower sector configurations for 2023-06-08
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clc; clear; close all;
 
