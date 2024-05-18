@@ -13,7 +13,8 @@
 
 function icas_function_plot_meteo()
 
-    close all;
+    clear; clc; close all;
+    warning('off');
 
     % Time: from 15.00 to 17.15 (end time to 17.30)
     minut_vec = 00:15:135; % Minutes from 15.00
@@ -52,17 +53,19 @@ function icas_function_plot_meteo()
     % all flight levels:  0    45    65    95   105   195
     flight_levels = [0 45 65 95 105 195];
 
-    acc_pgons = {};    
+    acc_pgons = {};
 
     for t=1:10
 
         config_name = config_vec{t};
 
-        for h=1:numel(flight_levels)
+        for h=1:numel(flight_levels)-1
 
-            flight_level = flight_levels(h);
+            start_flight_level = flight_levels(h);
+            end_flight_level = flight_levels(h+1);
 
-            acc_pgons{t, h} = icas_function_get_acc_polygon(acc_struct, config_name, flight_level);
+            acc_pgons{t, h} = icas_function_get_acc_polygon(acc_struct, config_name,...
+                start_flight_level, end_flight_level);
 
         end
     end
@@ -75,9 +78,10 @@ function icas_function_plot_meteo()
     
     for t=1:10
 
-        for h=1:numel(flight_levels)
+        for h=1:numel(flight_levels)-1
 
-            flight_level = flight_levels(h);
+            start_flight_level = flight_levels(h);
+            end_flight_level = flight_levels(h+1);
 
             figure, hold on
 
@@ -216,12 +220,15 @@ function icas_function_plot_meteo()
 
             filename = strcat('time', start_time_str);
             filename = strcat(filename, "_FL");
-            filename = strcat(filename, string(flight_level));
+            filename = strcat(filename, string(start_flight_level));
+            filename = strcat(filename, "_");
+            filename = strcat(filename, string(end_flight_level));
             saveas(fig, fullfile('.', 'figures', 'meteo', filename), 'png');
             clf(fig)
         end
     end
 end
+
 
 function vertices_sorted = sort_vertices(vertices)
 N = size(vertices, 1);

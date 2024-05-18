@@ -3,29 +3,29 @@
 % Anastasia Lemetti
 % MATLAB version: MATLAB R2024a
 % 
-% plot EDMMCTAA with neighbours on all flight levels for 2023-06-08,
-% for configurations A5I and A5NH
+% plot EDUUUTAS on all flight levels for configuration 'S6H'
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Airspace configuration
-lower_sector_filename = fullfile('.', 'code_input', 'airspace_data', 'Lower_airspace', ...
-    'fir_nextto_EDMMCTAA_2023-06-08.json');
+upper_sector_filename = fullfile('.', 'code_input', 'airspace_data', 'Upper_airspace', ...
+    'fir_EDUU_2023-06-08.json');
 
-lower_sector = jsondecode(fileread(lower_sector_filename));
+upper_sector = jsondecode(fileread(upper_sector_filename));
 
 exp_date = 'x2023_06_08';
 
-acc_struct_arr = [lower_sector.(exp_date)];
+acc_struct_arr = [upper_sector.(exp_date)];
 acc_names = fieldnames(acc_struct_arr);
 
-% TODO: add time and check all configurations by time
+% Find the coordinates of ACC EDUUUTAS and all its sectors, configuration 'S6H'
+main_acc = 'EDUUUTAS';
+confs = [upper_sector.(exp_date).(main_acc).configurations];
 
-% Find the coordinates of EDMMCTAA, configuration A5I
-main_acc = 'EDMMCTAA';
-confs = [lower_sector.(exp_date).(main_acc).configurations];
-
-main_conf_name = 'A5I';
+main_conf_name = 'S6H';
 main_conf = confs.(main_conf_name);
+
+
+
 
 flight_levels = [0 45 65 95 105 195];
 

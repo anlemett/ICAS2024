@@ -3,10 +3,12 @@
 % Anastasia Lemetti
 % MATLAB version: MATLAB R2024a
 % 
-% returns EDMMCTAA polygon of config_name configuration at flight_level
+% returns EDMMCTAA polygon of config_name configuration 
+% at altitude band between start_flight_level and end_flight_level
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function acc_polygon = icas_function_get_acc_polygon(acc_struct, config_name, flight_level)
+function acc_polygon = icas_function_get_acc_polygon(acc_struct, config_name,...
+    start_flight_level, end_flight_level)
 
     acc_polygon = polyshape();
 
@@ -17,18 +19,18 @@ function acc_polygon = icas_function_get_acc_polygon(acc_struct, config_name, fl
 
     el_sectors_names = fieldnames(el_sectors);
 
-    for i2 = 1:numel(el_sectors_names)
+    for i1 = 1:numel(el_sectors_names)
 
-        el_sector = el_sectors.(el_sectors_names{i2});
+        el_sector = el_sectors.(el_sectors_names{i1});
 
         airblocks = [el_sector.airblocks];
 
         airblocks_names = fieldnames(airblocks);
 
-        for i3 = 1: numel(airblocks_names)
-            airblock = airblocks.(airblocks_names{i3});
+        for i2 = 1: numel(airblocks_names)
+            airblock = airblocks.(airblocks_names{i2});
 
-            if (airblock.fl(1) <= flight_level) && (flight_level <= airblock.fl(2))
+            if (airblock.fl(1) <= start_flight_level) && (end_flight_level <= airblock.fl(2))
               
                 airblock_coord = airblock.polygon;
                 airblock_coord(:, [1, 2]) = airblock_coord(:, [2, 1]);
